@@ -3,17 +3,17 @@ import 'package:newsapp/src/models/news_models.dart';
 import 'package:newsapp/src/theme/tema.dart';
 
 class ListaNoticias extends StatelessWidget {
-  final List<Article> noticias;
+  final List<Article>? noticias;
 
   const ListaNoticias(this.noticias);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: noticias.length,
+      itemCount: noticias?.length,
       itemBuilder: (BuildContext context, int index) {
         return _Noticia(
-          noticia: noticias[index],
+          noticia: noticias![index],
           index: index,
         );
       },
@@ -41,6 +41,14 @@ class _Noticia extends StatelessWidget {
         _TarjetaImagen(
           noticia: noticia,
         ),
+        _TarjetaBody(
+          noticia: noticia,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Divider(),
+        _TarjetaBotones(),
       ],
     );
   }
@@ -89,6 +97,63 @@ class _TarjetaImagen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Hola mundo');
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
+        child: Container(
+          child: (noticia.urlToImage != null)
+              ? FadeInImage(
+                  image: NetworkImage(noticia.urlToImage!),
+                  placeholder: AssetImage('assets/giphy.gif'),
+                )
+              : Image(image: AssetImage('assets/no-image.png')),
+        ),
+      ),
+    );
+  }
+}
+
+class _TarjetaBody extends StatelessWidget {
+  final Article noticia;
+
+  const _TarjetaBody({required this.noticia});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Text(noticia.description == null ? '' : noticia.description!,
+          style: TextStyle(fontSize: 14)),
+    );
+  }
+}
+
+class _TarjetaBotones extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: miTema.accentColor,
+            child: Icon(Icons.star_border),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          ),
+          SizedBox(width: 10),
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: Colors.blue,
+            child: Icon(Icons.more),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          ),
+        ],
+      ),
+    );
   }
 }

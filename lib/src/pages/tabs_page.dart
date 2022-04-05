@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/src/pages/tab1_page.dart';
+import 'package:newsapp/src/pages/tab2_page.dart';
+import 'package:newsapp/src/services/news_service.dart';
 import 'package:provider/provider.dart';
 
 class TabsPageScreen extends StatelessWidget {
@@ -24,7 +26,11 @@ class _Navegacion extends StatelessWidget {
 
     return BottomNavigationBar(
       currentIndex: navegacionModel.paginaActual,
-      onTap: (i) => navegacionModel.paginaActual = i,
+      onTap: (i) {
+        navegacionModel.paginaActual = i;
+        final newsServices = Provider.of<NewsService>(context, listen: false);
+        newsServices.selectedCategory = newsServices.selectedCategory;
+      },
       items: [
         BottomNavigationBarItem(
             icon: Icon(Icons.person_outline), label: 'Para ti'),
@@ -44,9 +50,7 @@ class _Paginas extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: [
         Tab1Page(),
-        Container(
-          color: Colors.green,
-        ),
+        Tab2Page(),
       ],
     );
   }
@@ -54,7 +58,7 @@ class _Paginas extends StatelessWidget {
 
 class _NavegacionModel with ChangeNotifier {
   int _paginaActual = 0;
-  PageController _pageController = PageController(initialPage: 1);
+  PageController _pageController = PageController(initialPage: 0);
 
   int get paginaActual {
     return _paginaActual;
