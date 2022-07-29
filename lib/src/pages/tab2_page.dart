@@ -15,11 +15,11 @@ class Tab2Page extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           _ListaCategorias(),
-          Divider(
+          const Divider(
             color: Colors.white,
           ),
           Expanded(

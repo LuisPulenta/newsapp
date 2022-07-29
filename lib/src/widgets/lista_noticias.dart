@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class ListaNoticias extends StatelessWidget {
   final List<Article>? noticias;
 
-  const ListaNoticias(this.noticias);
+  const ListaNoticias(this.noticias, {Key? key}) : super(key: key);
 
 //------------------------- PANTALLA ---------------------------------
   @override
