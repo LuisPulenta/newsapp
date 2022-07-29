@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/src/models/news_models.dart';
 import 'package:newsapp/src/theme/tema.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListaNoticias extends StatelessWidget {
   final List<Article>? noticias;
@@ -31,29 +32,32 @@ class _Noticia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _TarjetaTopBar(
-          noticia: noticia,
-          index: index,
-        ),
-        _TarjetaTitulo(
-          noticia: noticia,
-        ),
-        _TarjetaImagen(
-          noticia: noticia,
-        ),
-        _TarjetaBody(
-          noticia: noticia,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Divider(
-          color: Colors.white,
-        ),
-        //_TarjetaBotones(),
-      ],
+    return GestureDetector(
+      onTap: () => _launchURL(noticia),
+      child: Column(
+        children: [
+          _TarjetaTopBar(
+            noticia: noticia,
+            index: index,
+          ),
+          _TarjetaTitulo(
+            noticia: noticia,
+          ),
+          _TarjetaImagen(
+            noticia: noticia,
+          ),
+          _TarjetaBody(
+            noticia: noticia,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Divider(
+            color: Colors.white,
+          ),
+          //_TarjetaBotones(),
+        ],
+      ),
     );
   }
 }
@@ -162,5 +166,11 @@ class _TarjetaBotones extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+void _launchURL(Article noticia) async {
+  if (!await launch(noticia.url)) {
+    throw 'No se puede leer la noticia';
   }
 }
