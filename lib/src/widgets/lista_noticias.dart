@@ -7,6 +7,7 @@ class ListaNoticias extends StatelessWidget {
 
   const ListaNoticias(this.noticias);
 
+//------------------------- PANTALLA ---------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -21,6 +22,7 @@ class ListaNoticias extends StatelessWidget {
   }
 }
 
+//------------------------- _Noticia ---------------------------------
 class _Noticia extends StatelessWidget {
   final Article noticia;
   final int index;
@@ -44,16 +46,19 @@ class _Noticia extends StatelessWidget {
         _TarjetaBody(
           noticia: noticia,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Divider(),
-        _TarjetaBotones(),
+        const Divider(
+          color: Colors.white,
+        ),
+        //_TarjetaBotones(),
       ],
     );
   }
 }
 
+//------------------------- _TarjetaTopBar ---------------------------------
 class _TarjetaTopBar extends StatelessWidget {
   final Article noticia;
   final int index;
@@ -63,11 +68,12 @@ class _TarjetaTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      margin: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Text('${index + 1}. ', style: TextStyle(color: miTema.accentColor)),
+          Text('${index + 1}. ',
+              style: TextStyle(color: miTema.colorScheme.secondary)),
           Text('${noticia.source.name}. '),
         ],
       ),
@@ -75,6 +81,7 @@ class _TarjetaTopBar extends StatelessWidget {
   }
 }
 
+//------------------------- _TarjetaTitulo ---------------------------------
 class _TarjetaTitulo extends StatelessWidget {
   final Article noticia;
 
@@ -83,13 +90,14 @@ class _TarjetaTitulo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Text(noticia.title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
     );
   }
 }
 
+//------------------------- _TarjetaImagen ---------------------------------
 class _TarjetaImagen extends StatelessWidget {
   final Article noticia;
 
@@ -98,23 +106,23 @@ class _TarjetaImagen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
         child: Container(
           child: (noticia.urlToImage != null)
               ? FadeInImage(
                   image: NetworkImage(noticia.urlToImage!),
-                  placeholder: AssetImage('assets/giphy.gif'),
+                  placeholder: const AssetImage('assets/giphy.gif'),
                 )
-              : Image(image: AssetImage('assets/no-image.png')),
+              : const Image(image: AssetImage('assets/no-image.png')),
         ),
       ),
     );
   }
 }
 
+//------------------------- _TarjetaBody ---------------------------------
 class _TarjetaBody extends StatelessWidget {
   final Article noticia;
 
@@ -123,37 +131,36 @@ class _TarjetaBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Text(noticia.description == null ? '' : noticia.description!,
-          style: TextStyle(fontSize: 14)),
+          style: const TextStyle(fontSize: 14)),
     );
   }
 }
 
+//------------------------- _TarjetaBotones ---------------------------------
 class _TarjetaBotones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RawMaterialButton(
-            onPressed: () {},
-            fillColor: miTema.accentColor,
-            child: Icon(Icons.star_border),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          ),
-          SizedBox(width: 10),
-          RawMaterialButton(
-            onPressed: () {},
-            fillColor: Colors.blue,
-            child: Icon(Icons.more),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RawMaterialButton(
+          onPressed: () {},
+          fillColor: miTema.colorScheme.secondary,
+          child: const Icon(Icons.star_border),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+        const SizedBox(width: 10),
+        RawMaterialButton(
+          onPressed: () {},
+          fillColor: Colors.blue,
+          child: const Icon(Icons.more),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ],
     );
   }
 }

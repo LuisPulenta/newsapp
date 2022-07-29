@@ -10,6 +10,7 @@ class Tab1Page extends StatefulWidget {
   State<Tab1Page> createState() => _Tab1PageState();
 }
 
+//--------------------------- PAGINA ----------------------------------
 class _Tab1PageState extends State<Tab1Page>
     with AutomaticKeepAliveClientMixin {
   @override
@@ -17,11 +18,9 @@ class _Tab1PageState extends State<Tab1Page>
     final newsService = Provider.of<NewsService>(context);
 
     return Scaffold(
-      body: (newsService.headlines.length == 0)
-          ? Center(
-              child: CircularProgressIndicator(
-                color: Colors.yellow,
-              ),
+      body: (newsService.headlines.isEmpty)
+          ? const Center(
+              child: CircularProgressIndicator(),
             )
           : Center(
               child: ListaNoticias(newsService.headlines),
@@ -30,6 +29,5 @@ class _Tab1PageState extends State<Tab1Page>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

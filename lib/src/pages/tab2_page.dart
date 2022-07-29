@@ -8,59 +8,60 @@ import 'package:provider/provider.dart';
 class Tab2Page extends StatelessWidget {
   const Tab2Page({Key? key}) : super(key: key);
 
+//--------------------------- PAGINA ----------------------------------
   @override
   Widget build(BuildContext context) {
     final newsService = Provider.of<NewsService>(context);
     return SafeArea(
-      child: Container(
-        child: Column(
-          children: [
-            _ListaCategorias(),
-            Expanded(
-              child: (newsService
-                          .categoryArticles[newsService.selectedCategory]!
-                          .length ==
-                      0)
-                  ? Center(
-                      child:
-                          CircularProgressIndicator(color: miTema.accentColor),
-                    )
-                  : ListaNoticias(
-                      newsService.getArticulosCategoriaSeleccionada),
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 10,
+          ),
+          _ListaCategorias(),
+          Divider(
+            color: Colors.white,
+          ),
+          Expanded(
+            child: (newsService
+                    .categoryArticles[newsService.selectedCategory]!.isEmpty)
+                ? Center(
+                    child: CircularProgressIndicator(
+                        color: miTema.colorScheme.secondary),
+                  )
+                : ListaNoticias(newsService.getArticulosCategoriaSeleccionada),
+          ),
+        ],
       ),
     );
   }
 }
 
+//--------------------------- _ListaCategorias -----------------------------
 class _ListaCategorias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = Provider.of<NewsService>(context).categories;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 80,
       child: ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemCount: categories.length,
           itemBuilder: (BuildContext context, int index) {
             final cName = categories[index].name;
-            return Container(
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    _CategoryButton(categories[index]),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text('${cName[0].toUpperCase()}${cName.substring(1)}')
-                  ],
-                ),
+            return Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  _CategoryButton(categories[index]),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text('${cName[0].toUpperCase()}${cName.substring(1)}')
+                ],
               ),
             );
           }),
@@ -68,6 +69,7 @@ class _ListaCategorias extends StatelessWidget {
   }
 }
 
+//--------------------------- _CategoryButton -----------------------------
 class _CategoryButton extends StatelessWidget {
   final Category categoria;
 
@@ -85,15 +87,15 @@ class _CategoryButton extends StatelessWidget {
       child: Container(
           width: 40,
           height: 40,
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white,
           ),
           child: Icon(
             categoria.icon,
             color: newsService.selectedCategory == categoria.name
-                ? miTema.accentColor
+                ? miTema.colorScheme.secondary
                 : Colors.black54,
           )),
     );

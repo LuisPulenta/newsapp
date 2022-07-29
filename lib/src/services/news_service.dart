@@ -4,8 +4,8 @@ import 'package:newsapp/src/models/category_model.dart';
 import 'package:newsapp/src/models/news_models.dart';
 import 'package:http/http.dart' as http;
 
-final _URL_NEWS = 'https://newsapi.org/v2';
-final _APIKEY = 'a539dfbe34d04659a1a745db8c6c80e9';
+const _urlNews = 'https://newsapi.org/v2';
+const _apiKey = 'a539dfbe34d04659a1a745db8c6c80e9';
 
 class NewsService with ChangeNotifier {
   List<Article> headlines = [];
@@ -25,15 +25,15 @@ class NewsService with ChangeNotifier {
 
   NewsService() {
     getTopHeadLines();
-    categories.forEach((item) {
+    for (var item in categories) {
       categoryArticles[item.name] = [];
-    });
+    }
   }
 
-  String get selectedCategory => this._selectedCategory;
+  String get selectedCategory => _selectedCategory;
 
   set selectedCategory(String valor) {
-    this._selectedCategory = valor;
+    _selectedCategory = valor;
     getArticlesByCategory(valor);
     notifyListeners();
   }
@@ -42,8 +42,7 @@ class NewsService with ChangeNotifier {
       categoryArticles[selectedCategory];
 
   getTopHeadLines() async {
-    final url =
-        Uri.parse('$_URL_NEWS/top-headlines?apiKey=$_APIKEY&country=ar');
+    final url = Uri.parse('$_urlNews/top-headlines?apiKey=$_apiKey&country=ar');
 
     final resp = await http.get(url);
 
@@ -54,12 +53,12 @@ class NewsService with ChangeNotifier {
   }
 
   getArticlesByCategory(String category) async {
-    if (categoryArticles[category]!.length > 0) {
+    if (categoryArticles[category]!.isNotEmpty) {
       return categoryArticles[category];
     }
 
     final url = Uri.parse(
-        '$_URL_NEWS/top-headlines?apiKey=$_APIKEY&country=ar&category=$category');
+        '$_urlNews/top-headlines?apiKey=$_apiKey&country=ar&category=$category');
 
     final resp = await http.get(url);
 
