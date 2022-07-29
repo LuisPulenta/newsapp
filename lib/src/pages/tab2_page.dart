@@ -51,7 +51,7 @@ class _ListaCategorias extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: categories.length,
           itemBuilder: (BuildContext context, int index) {
-            final cName = categories[index].name;
+            final cName = categories[index].name2;
             return Padding(
               padding: const EdgeInsets.all(8),
               child: Column(

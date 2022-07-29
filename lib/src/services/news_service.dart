@@ -12,13 +12,13 @@ class NewsService with ChangeNotifier {
   String _selectedCategory = 'business';
 
   List<Category> categories = [
-    Category(FontAwesomeIcons.building, 'business'),
-    Category(FontAwesomeIcons.tv, 'entertainment'),
-    Category(FontAwesomeIcons.addressCard, 'general'),
-    Category(FontAwesomeIcons.headSideVirus, 'health'),
-    Category(FontAwesomeIcons.vials, 'science'),
-    Category(FontAwesomeIcons.volleyball, 'sports'),
-    Category(FontAwesomeIcons.memory, 'technology'),
+    Category(FontAwesomeIcons.building, 'business', 'negocios'),
+    Category(FontAwesomeIcons.tv, 'entertainment', 'entretenim.'),
+    Category(FontAwesomeIcons.addressCard, 'general', 'general'),
+    Category(FontAwesomeIcons.headSideVirus, 'health', 'salud'),
+    Category(FontAwesomeIcons.vials, 'science', 'ciencia'),
+    Category(FontAwesomeIcons.volleyball, 'sports', 'deportes'),
+    Category(FontAwesomeIcons.memory, 'technology', 'tecnología'),
   ];
 
   Map<String, List<Article>> categoryArticles = {};
