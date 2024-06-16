@@ -5,9 +5,15 @@ import 'package:newsapp/src/theme/tema.dart';
 import 'package:newsapp/src/widgets/lista_noticias.dart';
 import 'package:provider/provider.dart';
 
-class Tab2Page extends StatelessWidget {
+class Tab2Page extends StatefulWidget {
   const Tab2Page({Key? key}) : super(key: key);
 
+  @override
+  State<Tab2Page> createState() => _Tab2PageState();
+}
+
+class _Tab2PageState extends State<Tab2Page>
+    with AutomaticKeepAliveClientMixin {
 //--------------------------- PAGINA ----------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,6 +41,9 @@ class Tab2Page extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 //--------------------------- _ListaCategorias -----------------------------

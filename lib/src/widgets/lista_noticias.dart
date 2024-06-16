@@ -12,6 +12,7 @@ class ListaNoticias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: noticias?.length,
       itemBuilder: (BuildContext context, int index) {
         return _Noticia(
@@ -52,10 +53,10 @@ class _Noticia extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          //_TarjetaBotones(),
           const Divider(
             color: Colors.white,
           ),
-          //_TarjetaBotones(),
         ],
       ),
     );
@@ -119,7 +120,8 @@ class _TarjetaImagen extends StatelessWidget {
                   image: NetworkImage(noticia.urlToImage!),
                   placeholder: const AssetImage('assets/giphy.gif'),
                 )
-              : const Image(image: AssetImage('assets/no-image.png')),
+              : Container(),
+          //const Image(image: AssetImage('assets/no-image.png')),
         ),
       ),
     );
