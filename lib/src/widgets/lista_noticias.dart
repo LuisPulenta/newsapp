@@ -135,34 +135,7 @@ class _TarjetaBody extends StatelessWidget {
   }
 }
 
-//------------------------- _TarjetaBotones ---------------------------------
-class _TarjetaBotones extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RawMaterialButton(
-          onPressed: () {},
-          fillColor: miTema.colorScheme.secondary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: const Icon(Icons.star_border),
-        ),
-        const SizedBox(width: 10),
-        RawMaterialButton(
-          onPressed: () {},
-          fillColor: Colors.blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: const Icon(Icons.more),
-        ),
-      ],
-    );
-  }
-}
+//------------------------- _launchURL ---------------------------------
 
 void _launchURL(Article noticia) async {
   if (!await launch(noticia.url)) {
