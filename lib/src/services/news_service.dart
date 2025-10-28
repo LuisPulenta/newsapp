@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:newsapp/src/models/category_model.dart';
-import 'package:newsapp/src/models/news_models.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/category_model.dart';
+import '../models/news_models.dart';
 
 const _urlNews = 'https://newsapi.org/v2';
 const _apiKey = 'a539dfbe34d04659a1a745db8c6c80e9';
@@ -42,9 +43,11 @@ class NewsService with ChangeNotifier {
   List<Article>? get getArticulosCategoriaSeleccionada =>
       categoryArticles[selectedCategory];
 
-  getTopHeadLines() async {
-    final url =
-        Uri.parse('$_urlNews/top-headlines?apiKey=$_apiKey&country=$_country');
+  //----------------------------------------------------------------
+  Future<void> getTopHeadLines() async {
+    final url = Uri.parse(
+      '$_urlNews/top-headlines?apiKey=$_apiKey&country=$_country',
+    );
 
     final resp = await http.get(url);
 
@@ -54,13 +57,15 @@ class NewsService with ChangeNotifier {
     notifyListeners();
   }
 
-  getArticlesByCategory(String category) async {
+  //----------------------------------------------------------------
+  Future<List<Article>?>? getArticlesByCategory(String category) async {
     if (categoryArticles[category]!.isNotEmpty) {
       return categoryArticles[category];
     }
 
     final url = Uri.parse(
-        '$_urlNews/top-headlines?apiKey=$_apiKey&country=$_country&category=$category');
+      '$_urlNews/top-headlines?apiKey=$_apiKey&country=$_country&category=$category',
+    );
 
     final resp = await http.get(url);
 
@@ -69,5 +74,6 @@ class NewsService with ChangeNotifier {
     categoryArticles[category]!.addAll(newsResponse.articles);
 
     notifyListeners();
+    return null;
   }
 }

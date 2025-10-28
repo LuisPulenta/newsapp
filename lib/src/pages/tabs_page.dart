@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/src/pages/tab1_page.dart';
-import 'package:newsapp/src/pages/tab2_page.dart';
-import 'package:newsapp/src/services/news_service.dart';
-import 'package:newsapp/src/theme/tema.dart';
 import 'package:provider/provider.dart';
 
-class TabsPageScreen extends StatelessWidget {
-  const TabsPageScreen({Key? key}) : super(key: key);
+import '../services/news_service.dart';
+import '../theme/tema.dart';
+import 'tab1_page.dart';
+import 'tab2_page.dart';
 
-//------------------------------------------------------------------------
-//------------------------ Pantalla --------------------------------------
-//------------------------------------------------------------------------
+class TabsPageScreen extends StatelessWidget {
+  const TabsPageScreen({super.key});
+
+  //------------------------------------------------------------------------
+  //------------------------ Pantalla --------------------------------------
+  //------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => _NavegacionModel(),
-      child: Scaffold(
-        body: _Paginas(),
-        bottomNavigationBar: _Navegacion(),
-      ),
+      child: Scaffold(body: _Paginas(), bottomNavigationBar: _Navegacion()),
     );
   }
 }
@@ -36,10 +34,7 @@ class _Paginas extends StatelessWidget {
       //physics: BouncingScrollPhysics(),
       controller: navegacionModel.pageController,
       physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        Tab1Page(),
-        Tab2Page(),
-      ],
+      children: const [Tab1Page(), Tab2Page()],
     );
   }
 }
@@ -63,7 +58,9 @@ class _Navegacion extends StatelessWidget {
       },
       items: const [
         BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline), label: 'Para ti'),
+          icon: Icon(Icons.person_outline),
+          label: 'Para ti',
+        ),
         BottomNavigationBarItem(icon: Icon(Icons.public), label: 'Encabezados'),
       ],
     );
@@ -84,8 +81,11 @@ class _NavegacionModel with ChangeNotifier {
 
   set paginaActual(int valor) {
     _paginaActual = valor;
-    _pageController.animateToPage(valor,
-        duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+    _pageController.animateToPage(
+      valor,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOut,
+    );
     notifyListeners();
   }
 
