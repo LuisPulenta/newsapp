@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/src/models/news_models.dart';
-import 'package:newsapp/src/theme/tema.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../models/news_models.dart';
+import '../theme/tema.dart';
 
 class ListaNoticias extends StatelessWidget {
   final List<Article>? noticias;
 
-  const ListaNoticias(this.noticias, {Key? key}) : super(key: key);
+  const ListaNoticias(this.noticias, {super.key});
 
-//------------------------- PANTALLA ---------------------------------
+  //------------------------- PANTALLA ---------------------------------
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: noticias?.length,
       itemBuilder: (BuildContext context, int index) {
-        return _Noticia(
-          noticia: noticias![index],
-          index: index,
-        );
+        return _Noticia(noticia: noticias![index], index: index);
       },
     );
   }
@@ -37,26 +35,13 @@ class _Noticia extends StatelessWidget {
       onTap: () => _launchURL(noticia),
       child: Column(
         children: [
-          _TarjetaTopBar(
-            noticia: noticia,
-            index: index,
-          ),
-          _TarjetaTitulo(
-            noticia: noticia,
-          ),
-          _TarjetaImagen(
-            noticia: noticia,
-          ),
-          _TarjetaBody(
-            noticia: noticia,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
+          _TarjetaTopBar(noticia: noticia, index: index),
+          _TarjetaTitulo(noticia: noticia),
+          _TarjetaImagen(noticia: noticia),
+          _TarjetaBody(noticia: noticia),
+          const SizedBox(height: 10),
           //_TarjetaBotones(),
-          const Divider(
-            color: Colors.white,
-          ),
+          const Divider(color: Colors.white),
         ],
       ),
     );
@@ -77,8 +62,10 @@ class _TarjetaTopBar extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Text('${index + 1}. ',
-              style: TextStyle(color: miTema.colorScheme.secondary)),
+          Text(
+            '${index + 1}. ',
+            style: TextStyle(color: miTema.colorScheme.secondary),
+          ),
           Text('${noticia.source.name}. '),
         ],
       ),
@@ -96,8 +83,10 @@ class _TarjetaTitulo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Text(noticia.title,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+      child: Text(
+        noticia.title,
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+      ),
     );
   }
 }
@@ -138,8 +127,10 @@ class _TarjetaBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Text(noticia.description == null ? '' : noticia.description!,
-          style: const TextStyle(fontSize: 14)),
+      child: Text(
+        noticia.description == null ? '' : noticia.description!,
+        style: const TextStyle(fontSize: 14),
+      ),
     );
   }
 }
@@ -154,17 +145,19 @@ class _TarjetaBotones extends StatelessWidget {
         RawMaterialButton(
           onPressed: () {},
           fillColor: miTema.colorScheme.secondary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: const Icon(Icons.star_border),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
         const SizedBox(width: 10),
         RawMaterialButton(
           onPressed: () {},
           fillColor: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: const Icon(Icons.more),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
       ],
     );
